@@ -7,25 +7,30 @@ INITIAL_POSITION=0
 
 #Declaring Variables
 position=1
-rollDieNumber=0
+rollDiceNumber=0
 noPlay=0
 snake=1
 ladder=2
+diceCount=0
+
+#Declaring the Dictionary
+declare -A positionHistory
 
 function playerAction()
 {
 	while [ $position -le $WIN_POSITION ]
 	do
-		rollDieNumber=$((RANDOM%6+1))
+		rollDiceNumber=$((RANDOM%6+1))
+		diceCount=$(($diceCount+$rollDiceNumber))
 		actionRoll=$((RANDOM%3))
 		case $actionRoll in
 							$noPlay) echo "No Step"
 										;;
 							$ladder)	echo "Ladder"
-										position=$(($position+$rollDieNumber))
+										position=$(($position+$rollDiceNumber))
 										;;
 							$snake) echo "Snake"
-										position=$(($position-$rollDieNumber))
+										position=$(($position-$rollDiceNumber))
 										;;
 		esac
 
@@ -39,9 +44,13 @@ function playerAction()
 		if [ $position -eq $WIN_POSITION ]
 		then
 			echo "========Hurray!!! You won the game======="
+			echo "All dice count:"$diceCount
 			break
 		fi
+
+		positionHistory[$((counter++))]=$position
 	done
+	echo ${positionHistory[@]}
 }
 
 #Calling Function
