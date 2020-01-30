@@ -1,34 +1,41 @@
 #!/bin/bash -x
 echo "Snake & Ladder Simulator"
 
+#Declaring Constants
+WIN_POSITION=100
+INITIAL_POSITION=0
+
 #Declaring Variables
-position=0
+position=1
 rollDieNumber=0
 noPlay=0
 snake=1
 ladder=2
 
-function rollDie()
-{
-	rollDieNumber=$((RANDOM%6 + 1))
-	echo $rollDieNumber
-}
-
 function playerAction()
 {
-	actionRoll=$((RANDOM%3))
-	case $actionRoll in
+	while [ $position -le $WIN_POSITION ]
+	do
+		rollDieNumber=$((RANDOM%6+1))
+		actionRoll=$((RANDOM%3))
+		case $actionRoll in
 							$noPlay) echo "No Step"
 										;;
-							$snake)	echo "Snake"
-										position=$((position-$rollDieNumber))
+							$ladder)	echo "Ladder"
+										position=$(($position+$rollDieNumber))
 										;;
-							$ladder) echo "Ladder"
-										position=$((position+$rollDieNumber))
+							$snake) echo "Snake"
+										position=$(($position-$rollDieNumber))
 										;;
-	esac
+		esac
+
+		#If position goes belowe zero
+		if [ $position -lt $INITIAL_POSITION ]
+		then
+			position=$INITIAL_POSITION
+		fi
+	done
 }
 
-#Calling Functions
-rollDie
-playerAction $rollDieNumber
+#Calling Function
+playerAction
