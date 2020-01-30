@@ -34,6 +34,13 @@ function playerAction()
 		then
 			position=$INITIAL_POSITION
 		fi
+
+		#Checking for Winning position
+		if [ $position -eq $WIN_POSITION ]
+		then
+			echo "========Hurray!!! You won the game======="
+			break
+		fi
 	done
 }
 
