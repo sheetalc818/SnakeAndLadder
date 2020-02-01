@@ -29,19 +29,19 @@ function playerAction()
 				actionRoll=$((RANDOM%3))
 				case $actionRoll in
 							$noPlay) echo "No Step"
-										;;
-							$ladder)	echo "Ladder"
-										player1=$(($player1+$rollDiceNumber))
-										action=$((RANDOM%3))
-                					while [ $action -eq $ladder ]
-                					do
-                	  					player1=$(($player1 + $rollDiceNumber))
-               		  				action=$((RANDOM%3))
-                					done
-										;;
-							$snake) echo "Snake"
-										player1=$(($player1-$rollDiceNumber))
-										;;
+								 ;;
+							$ladder) echo "Ladder"
+								 player1=$(($player1+$rollDiceNumber))
+								 action=$((RANDOM%3))
+                						 while [ $action -eq $ladder ]
+                					 	 do
+                	  					   player1=$(($player1 + $rollDiceNumber))
+               		  					   action=$((RANDOM%3))
+                						 done
+							         ;;
+							$snake)  echo "Snake"
+								 player1=$(($player1-$rollDiceNumber))
+								 ;;
 				esac
 
 				#If position goes belowe zero
@@ -61,40 +61,40 @@ function playerAction()
 			if [ $turn -eq 2 ]
 			then
 				rollDiceNumber=$((RANDOM%6+1))
-            diceCount=$(($diceCount+$rollDiceNumber))
-            actionRoll=$((RANDOM%3))
-            case $actionRoll in
-                     $noPlay) echo "No Step"
-                              ;;
-                     $ladder) echo "Ladder"
-                              player2=$(($player2+$rollDiceNumber))
-                              action=$((RANDOM%3))
-                              while [ $action -eq $ladder ]
-                              do
-                                 player2=$(($player2 + $rollDiceNumber))
-                                 action=$((RANDOM%3))
-                              done
-                              ;;
-                     $snake) echo "Snake"
-                              player2=$(($player2-$rollDiceNumber))
-                              ;;
-            esac
+            			diceCount=$(($diceCount+$rollDiceNumber))
+            			actionRoll=$((RANDOM%3))
+            			case $actionRoll in
+                     			$noPlay) echo "No Step"
+                              			 ;;
+                     			$ladder) echo "Ladder"
+                              			 player2=$(($player2+$rollDiceNumber))
+                              			 action=$((RANDOM%3))
+                              			 while [ $action -eq $ladder ]
+                              			 do
+                                 		 player2=$(($player2 + $rollDiceNumber))
+                                 		 action=$((RANDOM%3))
+                              			 done
+                              			 ;;
+                     			$snake)  echo "Snake"
+                              			 player2=$(($player2-$rollDiceNumber))
+                                                 ;;
+              			esac
 				#If position goes belowe zero
-            if [ $player2 -lt $INITIAL_POSITION ]
-            then
-               player1=$INITIAL_POSITION
-            fi
+            			if [ $player2 -lt $INITIAL_POSITION ]
+            			then
+               				player1=$INITIAL_POSITION
+            			fi
 
-            #Checking for Winning position
-            if [ $player2 -eq $WIN_POSITION ]
-            then
-               echo "========Hurray!!! Player2 won the game======="
-               echo "All dice count:"$diceCount
-               break
-            fi
+            			#Checking for Winning position
+            			if [ $player2 -eq $WIN_POSITION ]
+            			then
+               				echo "========Hurray!!! Player2 won the game======="
+               				echo "All dice count:"$diceCount
+               				break
+            			fi
 			fi
-			done
 		done
+	done
 }
 
 #Calling Function
